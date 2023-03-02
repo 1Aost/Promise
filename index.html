@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手写实现Promise</title>
+    <script src="./promise.js"></script>
+</head>
+<body>
+    <script>
+        /** 
+         * resolve和reject函数的验证
+        */
+        /* let p=new Promise(function(resolve,reject) {
+            // resolve('OK');
+            // reject('ERr');
+            throw 'ERROR';
+        })
+        p.then(value=>{
+            console.log(value);
+        },reason=>{
+            console.warn(reason);
+        })
+        console.log(p); */
+
+        /** 
+         * 对象的状态只能改变一次验证
+         * 
+        */
+        /* let p=new Promise(function(resolve,reject) {
+            // resolve('OK');
+            reject('ERr');
+            throw 'ERROR';
+        })
+        p.then(value=>{
+            console.log(value);
+        },reason=>{
+            console.warn(reason);
+        })
+        console.log(p); */
+
+        /** 
+         * then方法执行回调验证
+         * 
+        */
+        /* let p=new Promise(function(resolve,reject) {
+            // resolve('OK');
+            // reject('ERR');
+            throw('ERROR');
+        })
+        p.then(value=>{
+            console.log(value);
+        },reason=>{
+            console.warn(reason);
+        })
+        console.log(p); */
+
+        /**
+         * 
+         * 异步任务回调的执行
+         */
+         /* let p=new Promise(function(resolve,reject) {
+            setTimeout(()=>{
+                // resolve('OK');
+                reject('ERR');
+            },1000);
+        })
+        p.then(value=>{
+            console.log(value);
+        },reason=>{
+            console.warn(reason);
+        })
+        console.log(p); */
+
+        /**
+         * 
+         * 指定多个回调的执行
+         */
+         /* let p=new Promise(function(resolve,reject) {
+            setTimeout(() => {
+                // resolve('OK');
+                reject('NO');
+            }, 1000);
+        })
+        p.then(value=>{
+            console.log(value);
+        },reason=>{
+            console.warn(reason);
+        })
+
+        p.then(value=>{
+            alert(value);
+        },reason=>{
+            alert(reason);
+        })
+        console.log(p); */
+
+        /**
+         * 
+         * 同步then返回结果验证
+         */
+        /*  let p=new Promise(function(resolve,reject) {
+            resolve('OK');
+        })
+        let res=p.then(value=>{
+            console.log(value);
+            return new Promise((resolve,reject)=>{
+                reject('123');
+            })
+        },reason=>{
+            console.warn(reason);
+        })
+        console.log(res); */
+
+        /**
+         * 
+         * 异步then返回结果
+         */
+        /*  let p=new Promise(function(resolve,reject) {
+            setTimeout(()=>{
+                resolve('OK');
+            },1000);
+        })
+        let res=p.then(value=>{
+            return 123;
+        },reason=>{
+            console.warn(reason);
+        })
+        console.log(res); */
+
+        /**
+         * 
+         * catch方法验证
+         */
+        /* let p=new Promise(function(resolve,reject) {
+            setTimeout(() => {
+                reject('OK');
+            }, 1000);
+        })
+        p.catch(reason=>{
+            console.warn(reason);
+        }) */
+        
+        /**
+         * 
+         * 异常穿透验证
+         */
+         /* let p=new Promise(function(resolve,reject) {
+            setTimeout(() => {
+                reject('OK');
+            }, 1000);
+        })
+        p.then(value=>{
+            console.log(111);
+        }).then(value=>{
+            console.log(222);
+        }).then(value=>{
+            console.log(333);
+        }).catch(reason=>{
+            console.warn(reason);
+        }) */
+
+        /**
+         * 
+         * 值传递验证
+         */
+        /* let p=new Promise(function(resolve,reject) {
+            setTimeout(() => {
+                resolve('OK');
+            }, 1000);
+        })
+        p.then().then(value=>{
+            console.log(222);
+        }).then(value=>{
+            console.log(333);
+        }).catch(reason=>{
+            console.warn(reason);
+        }) */
+
+        /**
+         * 
+         * resolve方法实现
+         */
+         /* let p1=Promise.resolve(123);
+         let p2=Promise.resolve(new Promise((resolve,reject)=>{
+            reject(123);
+         }))
+         let p3=Promise.resolve(Promise.resolve(345));
+         console.log(p1);
+         console.log(p2);
+         console.log(p3); */
+
+         /**
+          * 
+          * reject方法验证
+          */
+        /* let p1=Promise.reject(123);
+         let p2=Promise.reject(new Promise((resolve,reject)=>{
+            resolve(123);
+         }))
+         console.log(p1);
+         console.log(p2); */
+
+         /**
+          * 
+          * all方法实现
+          */
+         /* let p1=Promise.resolve(123);
+         let p2=Promise.resolve(new Promise((resolve,reject)=>{
+            resolve(234);
+         }))
+         let p3=Promise.reject(456);
+         let p=Promise.all([p1,p2]);
+         let pp=Promise.all([p1,p2,p3]);
+         console.log(p);
+         console.log(pp); */
+
+         /**
+          * 
+          * race方法实现
+          */
+         /* let p1=Promise.resolve(123);
+         let p2=Promise.resolve(new Promise((resolve,reject)=>{
+            resolve(234);
+         }))
+         let p3=Promise.reject(456);
+         let p=Promise.race([p1,p2]);
+         let pp=Promise.race([p3,p2]);
+         console.log(p);
+         console.log(pp); */
+
+         /**
+          * 
+          * 异步执行
+          */
+         let p1=new Promise(function(resolve,reject) {
+            resolve('OK');
+            console.log(111);
+         })
+         p1.then(value=>{
+            console.log(222);
+         })
+         console.log(333);
+    </script>
+</body>
+</html>
